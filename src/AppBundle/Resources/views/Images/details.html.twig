@@ -1,0 +1,68 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Image Details{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+
+        <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top img-thumbnail"   src="{{ image.path }}" alt="Card image cap">
+                    </div>
+                </div>
+
+            <div class="col-sm-8">
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Title</th>
+                        <td>{{ image.title }}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ image.description }}</td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Date Of Creation</th>
+                        <td>{{ image.dateOfCreation | date }}</td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Number Of Allowed Days</th>
+                        <td>{{ image.allowedDays }}</td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Path</th>
+                        <td>{{ image.path }}</td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Created By</th>
+                        <td><a href="#" class="badge badge-dark">{{ image.user.firstName }} {{ image.user.lastName }}</a></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

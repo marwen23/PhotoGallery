@@ -1,0 +1,94 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Admin\UserMangementController:index{% endblock %}
+
+{% block body %}
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Users Management</h1>
+            <p></p>
+
+        </div>
+    </section>
+
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id}}</th>
+            <td>{{ user.firstName}}</td>
+            <td>{{ user.lastName}}</td>
+            <td>{{ user.username}}</td>
+            <td>{{ user.email}}</td>
+            <td>{% for role in user.roles %}
+                {% if(role=="ROLE_ADMIN") %}
+                    Administrator
+                {% endif %}
+                    {% if(role=="ROLE_USER") %}
+                        User
+                    {% endif %}
+
+                {% endfor %}</td>
+            <td>
+                <a type="button" class="btn btn-dark" href="{{ path('update_user', {'id':user.id})  }}">Edit</a>
+                <a type="button" class="btn btn-danger" href="{{ path('delete_user', {'id':user.id})  }}">Delete</a>
+
+            </td>
+        </tr>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Do you really want to delete this image?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <a href="{{ path('delete_user', {'id':user.id})  }}" type="button" class="btn btn-danger">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+</div>
+
+{% endblock %}

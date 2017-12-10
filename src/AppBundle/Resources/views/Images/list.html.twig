@@ -1,0 +1,77 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Images List{% endblock %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Visualize All Images</h1>
+        </div>
+        <br><br>
+        <div class="container">
+            <div class="row justify-content-md-center">
+
+                <div class="col-md-auto">
+                    <form class="form-inline" method="post" action="{{ path('image_search')  }}">
+                        <div class="form-group mx-sm-3">
+                            <label for="inputPassword2" class="sr-only">Search By Image Title</label>
+                            <input type="text" class="form-control" name="keyword" id="inputPassword2" placeholder="Search...">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort Images By:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ path('image_sorted', {'sortBy':'title'})  }}">Title</a>
+                        <a class="dropdown-item" href="{{ path('image_sorted', {'sortBy':'dateOfCreation'})  }}">Creation Date</a>
+                        <a class="dropdown-item" href="{{ path('image_sorted', {'sortBy':'allowedDays'})  }}">Allowed Days</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            {% for image in pagination %}
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top img-thumbnail" style="max-height:250px;"  src="{{ image.path }}" alt="Card image cap">
+                        <div class="card-block">
+                            <h4 class="card-title">{{ image.title }}</h4>
+                            <p class="card-text">{{ image.description }}</p>
+                            <p class="card-text"><small class="text-muted">Created: {{ image.dateOfCreation | date }} By</small> <span class="badge badge-warning">{{ image.user.username }}</span></p>
+
+                            <a href="{{ path('image_details', {'id':image.id})  }}" class="btn btn-primary float-right">Details</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <div class="row justify-content-md-center">
+
+                <div class="col-md-auto">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+{% endblock %}
